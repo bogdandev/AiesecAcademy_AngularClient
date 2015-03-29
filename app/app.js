@@ -7,7 +7,7 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl:'app/templates/task_list.html',
             controller: 'TaskListCtrl'
         })
-        .when('/tasks/:id',{
+        .when('/task/:id',{
             templateUrl:'app/templates/task_view.html',
             controller: 'TaskCtrl'
         })
