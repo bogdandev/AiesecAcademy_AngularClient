@@ -1,9 +1,9 @@
 
-app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler){
+app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$routeParams){
 
     $scope.task = [];
 
-    $http.get(baseAPIRoute+'/tasks/').
+    $http.get(baseAPIRoute+'/tasks/'+$routeParams.id).
         success(function(data,status) {
             if(status === 200){
                 $scope.task = data;
