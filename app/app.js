@@ -17,5 +17,9 @@ app.config(['$routeProvider', function($routeProvider){
 }]);
 
 app.value('baseAPIRoute','http://aiesec.cargoplanning.com/api');
+app.config(function($httpProvider) {
+    $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+});
 
 

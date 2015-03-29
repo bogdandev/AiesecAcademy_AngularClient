@@ -1,20 +1,19 @@
 <h2>Edit task {{task.id}}: </h2>
-
-<div class="col-md-1">
-    <span class="glyphicon glyphicon-arrow-down" ng-click="task.expanded=!task.expanded"></span>
-    <span class="glyphicon glyphicon-check"></span>
+<div class="row list-group-item">
+    <div class="col-md-1">
+        <span><input type="checkbox" ng-click="completeTask(task)"/></span>
+    </div>
+    <div class="col-md-7">
+        <input type="text" ng-model="task.name" placeholder="Enter task name"/>
+    </div>
+    <div class="col-md-3">
+        {{task.deadline|date}}
+    </div>
+    <div class="col-md-1">
+        <span class="glyphicon glyphicon-ok" ng-click="saveTask(task)"></span>
+        <span class="delete-task" ng-click="deleteTask(task)">&times;</span>
+    </div>
+    <div class="col-md-12 task-description">
+        <textarea ng-model="task.description" placeholder="Description"></textarea>
+    </div>
 </div>
-<div class="col-md-6">
-    <input type="text" ng-model="task.name" />
-</div>
-<div class="col-md-2">
-    {{task.deadline|date}}
-</div>
-<div class="col-md-3">
-    <span class="glyphicon glyphicon-pencil"></span>
-    <span>&times;</span>
-</div>
-<div class="col-md-12" >
-    <textarea type="text" ng-model="task.description"></textarea>
-</div>
-
