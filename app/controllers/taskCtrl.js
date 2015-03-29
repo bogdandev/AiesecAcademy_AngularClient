@@ -50,16 +50,6 @@ app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$route
                 console.log(status);
             });
 
-        //$http.put(baseAPIRoute+'/tasks/'+$routeParams.id, requestObject, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).
-        //    success(function(data,status) {
-        //        if(status === 200){
-        //            $scope.task = data;
-        //        }
-        //    }).
-        //    error(function(data, status, headers, config) {
-        //        console.log(status);
-        //    });
-
 
     };
 
