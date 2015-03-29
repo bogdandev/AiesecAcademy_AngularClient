@@ -1,8 +1,8 @@
 <h2>Task list</h2>
 <div ng-repeat="task in tasks" class="row">
     <div class="col-md-1">
-        <span class="glyphicon glyphicon-" ng-click="task.expanded=!task.expanded"></span>
-        <span class="glyphicon glyphicon-check"></span>
+        <span class="caret" ng-click="task.expanded=!task.expanded"></span>
+        <span><input type="checkbox" ng-click="task.completed!=task.completed"/></span>
     </div>
     <div class="col-md-6">
         {{task.name}}
