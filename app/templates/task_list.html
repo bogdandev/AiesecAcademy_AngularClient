@@ -1,20 +1,22 @@
 <h2>Task list</h2>
-<div ng-repeat="task in tasks" class="row">
-    <div class="col-md-1">
-        <span class="glyphicon glyphicon-" ng-click="task.expanded=!task.expanded"></span>
-        <span class="glyphicon glyphicon-check"></span>
-    </div>
-    <div class="col-md-6">
-        {{task.name}}
-    </div>
-    <div class="col-md-2">
-        {{task.deadline|date}}
-    </div>
-    <div class="col-md-3">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span>&times;</span>
-    </div>
-    <div class="col-md-12" ng-if="task.expanded">
-        {{task.description}}
+<div class="list-group">
+    <div ng-repeat="task in tasks" class="row list-group-item">
+        <div class="col-md-2">
+            <span class="caret toggle-task-expand" ng-click="expandTask(task)"></span>
+            <span><input type="checkbox" ng-click="completeTask(task)"/></span>
+        </div>
+        <div class="col-md-6">
+            {{task.name}}
+        </div>
+        <div class="col-md-2">
+            {{task.deadline|date}}
+        </div>
+        <div class="col-md-2">
+            <span class="glyphicon glyphicon-pencil" ng-click="editTask(task)"></span>
+            <span class="delete-task" ng-click="deleteTask(task)">&times;</span>
+        </div>
+        <div class="col-md-12 task-description" ng-if="task.expanded">
+            {{task.description}}
+        </div>
     </div>
 </div>
