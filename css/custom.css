@@ -1,0 +1,15 @@
+.toggle-task-expand {
+    margin-right: 20px;
+}
+
+.task-description {
+    background-color: #C7CACA;
+}
+
+.delete-task {
+    color: red;
+    padding-left: 10px;
+    margin-left: 5px;
+    display: inline-block;
+    border-left: 2px solid #C7CACA;
+}

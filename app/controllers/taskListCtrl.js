@@ -1,5 +1,5 @@
 
-app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler){
+app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$location){
 
     $scope.tasks = [];
 
@@ -12,5 +12,17 @@ app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler){
         error(function(data, status, headers, config) {
             ErrorHandler.alert(data);
         });
+
+    $scope.expandTask = function (task) {
+        task.expanded = !task.expanded;
+    };
+
+    $scope.completeTask = function (task) {
+        task.completed = !task.completed;
+    };
+
+    $scope.editTask = function (task) {
+       $location.path('/task/'+task.id);
+    }
 
 });
