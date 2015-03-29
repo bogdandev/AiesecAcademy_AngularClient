@@ -1,10 +1,11 @@
 
-app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$routeParams){
+app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$routeParams,$location){
 
     $scope.task = [];
 
     getTaskDetails();
     $scope.saveTask = saveTask;
+    $scope.deleteTask = deleteTask;
 
     function getTaskDetails(){
         $http.get(baseAPIRoute+'/tasks/'+$routeParams.id).
@@ -42,8 +43,8 @@ app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$route
                 return str.join("&");
             }
         }).success(function(data,status) {
-            if(status === 200){
-                $scope.task = data;
+            if(status === 204){
+                $location.path('/tasks');
             }
         }).
             error(function(data, status, headers, config) {
@@ -52,6 +53,19 @@ app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$route
 
 
     };
+
+
+    function deleteTask(task){
+        $http.delete(baseAPIRoute+'/tasks/'+task.id)
+            .success(function (data, headers) {
+                $location.path('/tasks');
+        }).
+            error(function(data, status, headers, config) {
+            console.log(data, status);
+        });;
+    }
+
+
 
 
 });

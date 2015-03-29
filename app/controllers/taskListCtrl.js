@@ -2,8 +2,12 @@
 app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$location){
 
     $scope.tasks = [];
+    var parameters = {
+        limit: 20,
+        offset:0
+    }
 
-    $http.get(baseAPIRoute+'/tasks').
+    $http.get(baseAPIRoute+'/tasks',{params: parameters}).
         success(function(data,status) {
             if(status === 200){
                 $scope.tasks = data;
