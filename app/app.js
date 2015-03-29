@@ -15,12 +15,17 @@ app.config(['$routeProvider', function($routeProvider){
 app.value('baseAPIRoute','http://aiesec.cargoplanning.com/api');
 
 
-
-app.config(function($httpProvider) {
-    $httpProvider.defaults.useXDomain = true;
+app.service('ErrorHandler', function() {
+    return {
+        alert: function(data){
+            if(data.code){
+                return  alert('Error ' + data.code+' : ' + data.message);
+            }
+        }
+    }
 });
 
-app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http){
+app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler){
 
     $scope.tasks = [];
 
@@ -28,8 +33,15 @@ app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http){
         success(function(data, status, headers, config) {
            $scope.tasks = data;
         }).
+        success(function(data,status) {
+            if(status === 200){
+                $scope.tasks = data;
+            }else{
+                ErrorHandler.alert(status);
+            }
+        }).
         error(function(data, status, headers, config) {
-           console.log(data);
+            ErrorHandler.alert(data);
         });
 
 });
