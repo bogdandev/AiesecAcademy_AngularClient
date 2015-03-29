@@ -1,9 +1,12 @@
-<h2>Task list</h2>
+<h2>Task list <button type="button" class="pull-right glyphicon glyphicon-plus btn btn-primary btn-md" ng-click="addTask()"> Add</button>
+</h2>
+
 <div class="list-group">
     <div ng-repeat="task in tasks" class="row list-group-item" ng-class="{'completed':taskIsCompleted(task)}" ng-class-even="'task-list-even'" ng-class-odd="'task-list-odd'">
         <div class="col-md-2">
             <span class="toggle-task-expand" ng-click="expandTask(task)">
-                <span class="caret"></span>
+                <span ng-if="!task.expanded" class="glyphicon glyphicon-chevron-right"></span>
+                <span ng-if="task.expanded" class="glyphicon glyphicon-chevron-down"></span>
             </span>
             <span><input type="checkbox" ng-click="completeTask(task)" ng-if="!taskIsCompleted(task)"/></span>
             <span ng-if="taskIsCompleted(task)">Task Done!</span>
@@ -16,7 +19,7 @@
         </div>
         <div class="col-md-2">
             <span class="glyphicon glyphicon-pencil" ng-click="editTask(task)"></span>
-            <span class="delete-task" ng-click="deleteTask($index, task)">&times;</span>
+            <span class="delete-task glyphicon glyphicon-remove" ng-click="deleteTask($index, task)"></span>
         </div>
         <div class="col-md-12 task-description" ng-if="task.expanded">
             <h5>Description</h5>

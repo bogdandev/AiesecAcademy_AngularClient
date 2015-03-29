@@ -14,6 +14,7 @@
     margin-left: 5px;
     display: inline-block;
     border-left: 2px solid #C7CACA;
+    cursor: pointer;
 }
 
 .task-list-even {
@@ -25,9 +26,22 @@
 }
 
 .completed {
-    background-color: #67b168;
+    background-color: #99dd99;
 }
 
 .completed .text {
     text-decoration: line-through;
+}
+
+.glyphicon{
+    cursor: pointer;
+}
+
+.glyphicon-ok{
+    color:green;
+}
+
+
+textarea{
+    width:100%;
 }

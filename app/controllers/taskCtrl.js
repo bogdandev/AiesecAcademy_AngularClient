@@ -43,9 +43,7 @@ app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$route
                 return str.join("&");
             }
         }).success(function(data,status) {
-            if(status === 204){
                 $location.path('/tasks');
-            }
         }).
             error(function(data, status, headers, config) {
                 console.log(status);

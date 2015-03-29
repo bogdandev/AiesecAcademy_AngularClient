@@ -11,6 +11,10 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl:'app/templates/task_view.html',
             controller: 'TaskCtrl'
         })
+        .when('/task/new',{
+            templateUrl:'app/templates/task_view.html',
+            controller: 'TaskCtrl'
+        })
         .otherwise({
             redirectTo: '/tasks'
         });
