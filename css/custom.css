@@ -1,9 +1,11 @@
 .toggle-task-expand {
-    margin-right: 20px;
+    margin-right: 10px;
+    padding: 0 5px;
+    cursor: pointer;
 }
 
 .task-description {
-    background-color: #C7CACA;
+    padding: 15px;
 }
 
 .delete-task {
@@ -12,4 +14,20 @@
     margin-left: 5px;
     display: inline-block;
     border-left: 2px solid #C7CACA;
+}
+
+.task-list-even {
+    background-color: #bce8f1;
+}
+
+.task-list-odd {
+    background-color: #f7ecb5;
+}
+
+.completed {
+    background-color: #67b168;
+}
+
+.completed .text {
+    text-decoration: line-through;
 }
