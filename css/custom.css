@@ -45,3 +45,24 @@
 textarea{
     width:100%;
 }
+
+/* enable absolute positioning */
+.inner-addon {
+    position: relative;
+}
+
+/* style icon */
+.inner-addon>.glyphicon {
+    position: absolute;
+    pointer-events: none;
+}
+
+/* align icon */
+.right-addon > .glyphicon { right: 20px; top:10px;}
+
+/* add padding  */
+.right-addon input { padding-right: 20px; }
+
+.controls{
+    margin-top: 8px;
+}

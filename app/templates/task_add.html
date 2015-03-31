@@ -4,9 +4,10 @@
         <!--<span><input type="checkbox" ng-click="completeTask(task)"/></span>-->
     <!--</div>-->
     <div class="col-md-7">
-        <input type="text" ng-model="task.name" placeholder="Enter task name"/>
+        <input type="text" class="form-control" ng-model="task.name" placeholder="Enter task name"/>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 inner-addon right-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
         <input type="text"
                class="form-control date"
                id="dateFroms"
@@ -20,11 +21,11 @@
                ng-required="true"
                close-text="Close" >
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 controls">
         <span class="glyphicon glyphicon-ok" ng-click="saveTask(task)"></span>
-        <span class="delete-task glyphicon glyphicon-remove" ng-click="deleteTask(task)"></span>
+        <span class="delete-task glyphicon glyphicon-remove" ng-click="goToListView();"></span>
     </div>
     <div class="col-md-12 task-description">
-        <textarea ng-model="task.description" placeholder="Description"></textarea>
+        <textarea class="form-control" ng-model="task.description" placeholder="Description"></textarea>
     </div>
 </div>

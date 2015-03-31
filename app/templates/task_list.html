@@ -9,12 +9,12 @@
                 <span ng-if="task.expanded" class="glyphicon glyphicon-chevron-down"></span>
             </span>
             <span><input type="checkbox" ng-click="completeTask(task)" ng-if="!taskIsCompleted(task)"/></span>
-            <span ng-if="taskIsCompleted(task)">Task Done!</span>
+            <span ng-if="taskIsCompleted(task)">&#x2713;</span>
         </div>
-        <div class="col-md-6 text">
+        <div class="col-md-5 text">
             {{task.name}}
         </div>
-        <div class="col-md-2 text">
+        <div class="col-md-3 text">
             {{task.deadline|date}}
         </div>
         <div class="col-md-2">
