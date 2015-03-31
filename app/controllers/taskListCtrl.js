@@ -7,7 +7,9 @@ app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$l
         offset:0
     }
 
-    $http.get(baseAPIRoute+'/tasks',{params: parameters}).
+    $http.get("taskList.json").
+
+    //$http.get(baseAPIRoute+'/tasks',{params: parameters}).
         success(function(data,status) {
             if(status === 200){
                 $scope.tasks = data;
