@@ -1,5 +1,5 @@
 
-var app = angular.module('TaskList',['ngRoute','ngResource']);
+var app = angular.module('TaskList',['ngRoute','ngResource','ui.bootstrap']);
 
 app.config(['$routeProvider', function($routeProvider){
     $routeProvider
@@ -11,8 +11,8 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl:'app/templates/task_view.html',
             controller: 'TaskCtrl'
         })
-        .when('/task/new',{
-            templateUrl:'app/templates/task_view.html',
+        .when('/tasks/new',{
+            templateUrl:'app/templates/task_add.html',
             controller: 'TaskCtrl'
         })
         .otherwise({

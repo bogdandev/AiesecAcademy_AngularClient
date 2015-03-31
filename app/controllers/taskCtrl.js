@@ -1,9 +1,19 @@
 
-app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$routeParams,$location){
+app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$routeParams,$location,$filter){
 
-    $scope.task = [];
+    $scope.task = {};
+    $scope.today = new Date();
+    var reqUrl, reqMethod;
 
-    getTaskDetails();
+    if(isNaN(parseInt($routeParams.id))) {
+        reqUrl = baseAPIRoute+'/tasks';
+        reqMethod='POST';
+    }else{
+        reqUrl = baseAPIRoute+'/tasks/'+$routeParams.id;
+        reqMethod='PUT';
+        getTaskDetails();
+    }
+
     $scope.saveTask = saveTask;
     $scope.deleteTask = deleteTask;
 
@@ -19,21 +29,22 @@ app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$route
             });
     }
 
-    $scope.completeTask = function (task) {
-        task.completed = !task.completed;
-    };
 
     function saveTask(task) {
+        var formatedDate;
 
+        if(task.deadline){
+            formatedDate = $filter('date')(task.deadline,'yyyy-MM-dd');
+        }
         var requestObject = {
             'aiesec_tasklistbundle_task[name]': task.name,
             'aiesec_tasklistbundle_task[description]': task.description,
-            'aiesec_tasklistbundle_task[deadline]': '2015-05-10'
+            'aiesec_tasklistbundle_task[deadline]': formatedDate
         };
 
         $http({
-            method: 'PUT',
-            url: baseAPIRoute+'/tasks/'+$routeParams.id,
+            method: reqMethod,
+            url: reqUrl,
             data: requestObject,
             headers: { 'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
             transformRequest: function(obj) {
@@ -46,12 +57,17 @@ app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$route
                 $location.path('/tasks');
         }).
             error(function(data, status, headers, config) {
-                console.log(status);
+                ErrorHandler.alert(data);
             });
 
 
     };
 
+    $scope.completeTask = function (task) {
+        $http.put(baseAPIRoute+'/tasks/'+task.id+'/done').success(function (data, headers) {
+            task.status = 'DONE';
+        });
+    };
 
     function deleteTask(task){
         $http.delete(baseAPIRoute+'/tasks/'+task.id)
@@ -59,8 +75,8 @@ app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$route
                 $location.path('/tasks');
         }).
             error(function(data, status, headers, config) {
-            console.log(data, status);
-        });;
+                ErrorHandler.alert(data);
+        });
     }
 
 

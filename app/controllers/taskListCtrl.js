@@ -42,7 +42,7 @@ app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$l
     }
 
     $scope.addTask = function(){
-        $location.path('/task/new');
+        $location.path('/tasks/new');
     }
 
 });
