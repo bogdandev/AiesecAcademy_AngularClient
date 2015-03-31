@@ -22,8 +22,8 @@
                close-text="Close" >
     </div>
     <div class="col-md-2 controls">
-        <span class="glyphicon glyphicon-ok" ng-click="saveTask(task)"></span>
-        <span class="delete-task glyphicon glyphicon-remove" ng-click="deleteTask(task)"></span>
+        <span class="glyphicon glyphicon-ok" ng-click="saveTask(task)" data-tooltip="Save"></span>
+        <span class="delete-task glyphicon glyphicon-remove" ng-click="deleteTask(task)" data-tooltip="Delete"></span>
     </div>
     <div class="col-md-12 task-description">
         <textarea ng-model="task.description" placeholder="Description" class="form-control"></textarea>

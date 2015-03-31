@@ -1,8 +1,14 @@
 <h2>Task list <button type="button" class="pull-right glyphicon glyphicon-plus btn btn-primary btn-md" ng-click="addTask()"> Add</button>
 </h2>
-
+<br/>
+<!--<div class="row inner-addon right-addon">-->
+    <!--<span class="glyphicon glyphicon-search"></span>-->
+    <!--<input type="text" class="form-control" ng-model="searchText" placeholder="Search task"/>-->
+<!--</div>-->
+<!--<br/>-->
 <div class="list-group">
-    <div ng-repeat="task in tasks" class="row list-group-item" ng-class="{'completed':taskIsCompleted(task)}" ng-class-even="'task-list-even'" ng-class-odd="'task-list-odd'">
+
+    <div ng-repeat="task in tasks | filter:searchText" class="row list-group-item" ng-class="{'completed':taskIsCompleted(task)}" ng-class-even="'task-list-even'" ng-class-odd="'task-list-odd'">
         <div class="col-md-2">
             <span class="toggle-task-expand" ng-click="expandTask(task)">
                 <span ng-if="!task.expanded" class="glyphicon glyphicon-chevron-right"></span>
@@ -18,8 +24,8 @@
             {{task.deadline|date}}
         </div>
         <div class="col-md-2">
-            <span class="glyphicon glyphicon-pencil" ng-click="editTask(task)"></span>
-            <span class="delete-task glyphicon glyphicon-remove" ng-click="deleteTask($index, task)"></span>
+            <span class="glyphicon glyphicon-pencil" ng-click="editTask(task)" data-tooltip="Edit"></span>
+            <span class="delete-task glyphicon glyphicon-remove" ng-click="deleteTask($index, task)" data-tooltip="Delete"></span>
         </div>
         <div class="col-md-12 task-description" ng-if="task.expanded">
             <h5>Description</h5>
