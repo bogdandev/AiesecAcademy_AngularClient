@@ -1,15 +1,19 @@
 
 app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$location){
 
+
+    //$httpBackend.whenGET(/.*/).passThrough();
+
+
     $scope.tasks = [];
     var parameters = {
         limit: 20,
         offset:0
-    }
+    };
 
-    $http.get("taskList.json").
+    //$http.get("taskList.json").
 
-    //$http.get(baseAPIRoute+'/tasks',{params: parameters}).
+    $http.get(baseAPIRoute+'/tasks',{params: parameters}).
         success(function(data,status) {
             if(status === 200){
                 $scope.tasks = data;
@@ -41,10 +45,9 @@ app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$l
         $http.delete(baseAPIRoute+'/tasks/'+task.id).success(function (data, headers) {
             $scope.tasks.splice(index, 1);
         });
-    }
+    };
 
     $scope.addTask = function(){
         $location.path('/tasks/new');
-    }
-
+    };
 });
