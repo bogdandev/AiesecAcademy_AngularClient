@@ -51,11 +51,31 @@ app.run(function ($httpBackend) {
 
     $httpBackend.whenGET(/^\/tasks\/\d+/).respond(fetchTask);
     $httpBackend.whenPUT(/^\/tasks\/\d+/).respond(updateTask);
-    $httpBackend.whenPOST(/^\/tasks\/\d+/).respond(updateTask);
     $httpBackend.whenPATCH(/^\/tasks\/\d+/).respond(updateTask);
     $httpBackend.whenDELETE(/^\/tasks\/\d+/).respond(deleteTask);
     $httpBackend.whenPUT(/^\/tasks\/\d+\/done/).respond(completeTask);
 
+    $httpBackend.whenPOST(/^\/tasks/).respond(addTask);
+
+
+    function addTask(method, url, data) {
+        var obj = {};
+        var model = {};
+        data.replace(/([^=&]+)=([^&]*)/g, function(m, key, value) {
+            obj[decodeURIComponent(key)] = decodeURIComponent(value);
+        });
+
+        angular.forEach(obj, function (value, key) {
+            var k = key.replace('aiesec_tasklistbundle_task[','').replace(']','');
+            model[k] = value;
+        });
+
+        model.id = mockData.length;
+
+        mockData.push(model);
+
+        return [200, {}, undefined, '200'];
+    }
 
     function completeTask (method, url) {
         var id = url.replace('/tasks/','').replace('/done').replace('/','');
@@ -110,11 +130,7 @@ app.run(function ($httpBackend) {
 
                 angular.forEach(obj, function (value, key) {
                     var k = key.replace('aiesec_tasklistbundle_task[','').replace(']','');
-                    if(k === 'deadline') {
-                        model[k] = new Date(value).getTime();
-                    } else {
-                        model[k] = value;
-                    }
+                    model[k] = value;
                 });
             }
         });
