@@ -49,8 +49,42 @@ app.run(function ($httpBackend) {
 
     $httpBackend.whenGET('/tasks?limit=20&offset=0').respond(mockData);
 
-    $httpBackend.whenGET(/^\/task\/\d+/).respond(function (method, url) {
-        var id = url.replace('http://aiesec.cargoplanning.com/api/tasks/','').replace('/');
+    $httpBackend.whenGET(/^\/tasks\/\d+/).respond(fetchTask);
+    $httpBackend.whenPUT(/^\/tasks\/\d+/).respond(updateTask);
+    $httpBackend.whenPOST(/^\/tasks\/\d+/).respond(updateTask);
+    $httpBackend.whenPATCH(/^\/tasks\/\d+/).respond(updateTask);
+    $httpBackend.whenDELETE(/^\/tasks\/\d+/).respond(deleteTask);
+    $httpBackend.whenPUT(/^\/tasks\/\d+\/done/).respond(completeTask);
+
+
+    function completeTask (method, url) {
+        var id = url.replace('/tasks/','').replace('/done').replace('/','');
+        mockData.forEach(function (model, index) {
+            if(model.id == id) {
+                model.status = 'DONE';
+            }
+        });
+    }
+
+    function deleteTask (method, url) {
+        var id = url.replace('/tasks/','').replace('/');
+
+        var taskIndex = -1;
+
+        var result = [200, {}, undefined, '200'];
+        mockData.forEach(function (model, index) {
+            if(model.id == id) {
+                taskIndex = index;
+            }
+        });
+
+        mockData.splice(taskIndex, 1);
+
+        return result;
+    }
+
+    function fetchTask (method, url) {
+        var id = url.replace('/tasks/','').replace('/');
 
         var result = [200, {}, undefined, '200'];
         mockData.forEach(function (model, index) {
@@ -60,22 +94,28 @@ app.run(function ($httpBackend) {
         });
 
         return result;
-    });
+    }
 
 
-    $httpBackend.whenPUT(/^\/task\/\d+/).respond(update);
-    $httpBackend.whenPOST(/^\/task\/\d+/).respond(update);
-    $httpBackend.whenPATCH(/^\/task\/\d+/).respond(update);
-
-
-    function update (method, url, data) {
-        console.log(data);
-        var id = url.replace('http://aiesec.cargoplanning.com/api/tasks/','').replace('/');
+    function updateTask (method, url, data) {
+        var id = url.replace('/tasks/','').replace('/');
 
         var result = [200, {}, undefined, '200'];
         mockData.forEach(function (model, index) {
             if(model.id == id) {
-                result = [200, model, undefined, '200'];
+                var obj = {};
+                data.replace(/([^=&]+)=([^&]*)/g, function(m, key, value) {
+                    obj[decodeURIComponent(key)] = decodeURIComponent(value);
+                });
+
+                angular.forEach(obj, function (value, key) {
+                    var k = key.replace('aiesec_tasklistbundle_task[','').replace(']','');
+                    if(k === 'deadline') {
+                        model[k] = new Date(value).getTime();
+                    } else {
+                        model[k] = value;
+                    }
+                });
             }
         });
 

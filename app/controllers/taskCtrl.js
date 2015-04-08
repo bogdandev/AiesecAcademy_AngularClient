@@ -56,18 +56,16 @@ app.controller('TaskCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$route
             }
         }).success(function(data,status) {
                 goToListView();
-        }).
-            error(function(data, status, headers, config) {
+        }).error(function(data, status, headers, config) {
                 ErrorHandler.alert(data);
             });
-
-
-    };
+    }
 
     $scope.completeTask = function (task) {
-        $http.put(baseAPIRoute+'/tasks/'+task.id+'/done').success(function (data, headers) {
-            task.status = 'DONE';
-        });
+        $http.put(baseAPIRoute+'/tasks/'+task.id+'/done', [])
+            .success(function (data, headers) {
+                task.status = 'DONE';
+            });
     };
 
     function deleteTask(task){
