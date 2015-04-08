@@ -1,53 +1,61 @@
 
-app.controller('TaskListCtrl',function($scope,baseAPIRoute,$http,ErrorHandler,$location){
-
-
-    //$httpBackend.whenGET(/.*/).passThrough();
-
+app.controller('TaskListCtrl',function($scope, tasksService, $location){
 
     $scope.tasks = [];
-    var parameters = {
-        limit: 20,
-        offset:0
-    };
 
-    //$http.get("taskList.json").
+    $scope.expandTask = expandTask;
+    $scope.completeTask = completeTask;
+    $scope.editTask = editTask;
+    $scope.taskIsCompleted = taskIsCompleted;
+    $scope.deleteTask = deleteTask;
+    $scope.addTask = addTask;
 
-    $http.get(baseAPIRoute+'/tasks',{params: parameters}).
-        success(function(data,status) {
-            if(status === 200){
+    (function getTasks() {
+        //tasksService.setLimit(2);
+        //tasksService.setOffset(2);
+
+        tasksService.getAllTasks(function (err, data) {
+            if (err === null) {
                 $scope.tasks = data;
+            } else {
+                console.log(err);
             }
-        }).
-        error(function(data, status, headers, config) {
-            ErrorHandler.alert(data);
         });
+    })();
 
-    $scope.expandTask = function (task) {
+    function expandTask (task) {
         task.expanded = !task.expanded;
-    };
+    }
 
-    $scope.completeTask = function (task) {
-        $http.put(baseAPIRoute+'/tasks/'+task.id+'/done').success(function (data, headers) {
-            task.status = 'DONE';
+    function completeTask (task) {
+        tasksService.completeTask(task.id, function (err, data) {
+            if (err === null) {
+                task.status = 'DONE';
+            } else {
+                console.log(err);
+            }
         });
-    };
+    }
 
-    $scope.editTask = function (task) {
+    function editTask (task) {
        $location.path('/task/'+task.id);
-    };
+    }
 
-    $scope.taskIsCompleted = function (task) {
+    function taskIsCompleted (task) {
         return task.status === 'DONE';
-    };
+    }
 
-    $scope.deleteTask = function (index, task) {
-        $http.delete(baseAPIRoute+'/tasks/'+task.id).success(function (data, headers) {
-            $scope.tasks.splice(index, 1);
+    function deleteTask (index, task) {
+        tasksService.deleteTask(task.id, function (err, data) {
+            if (err === null) {
+                $scope.tasks.splice(index, 1);
+            } else {
+                console.log(err);
+            }
         });
-    };
+    }
 
-    $scope.addTask = function(){
+    function addTask () {
         $location.path('/tasks/new');
-    };
+    }
 });
