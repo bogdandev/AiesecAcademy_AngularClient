@@ -5,7 +5,30 @@
         <title>Aiesec Academy Task List</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
+    <body ng-app="aiesecTaskList">
+
+        <div ng-controller="taskListController">
+            <div class="col-xs-6">My Task List</div>
+            <div class="col-xs-6"><button type="button" class="glyphicon glyphicon-plus btn btn-primary btn-md" ng-click="addTask()"> Add</button></div>
+
+            <div ng-repeat="task in taskList" class="col-xs-12">
+                <div class="col-xs-1" ng-click="expandTask(task)">
+                    <span class="caret"></span>
+                </div>
+                <div class="col-xs-1">
+                    <input type="checkbox" ng-checked="taskIsCompleted(task)" />
+                </div>
+                <div class="col-xs-6">{{task.name}}</div>
+                <div class="col-xs-2">{{task.deadline | date:'dd MMMM yyyy'}}</div>
+                <div class="col-xs-2">
+                    <a href="#/task/{{task.id}}">Edit</a>
+                </div>
+                <div class="col-xs-12" ng-show="task.expanded">{{task.description}}</div>
+            </div>
+        </div>
+
+
+
         <!-- 3rd party -->
         <script type="text/javascript" src="scripts/angular.js"></script>
         <script type="text/javascript" src="scripts/angular-mocks.js"></script>
@@ -18,5 +41,6 @@
 
         <!-- Custom Files -->
         <script type="text/javascript" src="app/app.js"></script>
+        <script type="text/javascript" src="app/controllers/taskListController.js"></script>
     </body>
 </html>
