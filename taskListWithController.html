@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>My Task List</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body ng-app="aiesecTaskList">
+
+        <div class="container" ng-controller="taskListController" ng-cloak>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="jumbotron">
+                        <h3>My Task List</h3>
+                        <button type="button" class="glyphicon glyphicon-plus btn btn-primary btn-md pull-right" ng-click="addTask()"> Add</button>
+                    </div>
+
+                    <div class="col-md-12 table" ng-repeat="task in taskList" ng-class="{'btn-success':taskIsCompleted(task)}" ng-class-odd="'btn-info'" ng-class-even="'btn-warning'">
+                        <div class="col-xs-1" ng-click="expandTask(task)">
+                            <span class="caret"></span>
+                        </div>
+                        <div class="col-xs-1">
+                            <input type="checkbox" ng-checked="taskIsCompleted(task)" ng-click="completeTask(task)" />
+                        </div>
+                        <div class="col-xs-6">{{task.name}}</div>
+                        <div class="col-xs-2">{{task.deadline | date:'dd MMMM yyyy'}}</div>
+                        <div class="col-xs-2">
+                            <a ng-href="#/task/{{task.id}}">Edit</a>
+                        </div>
+                        <div class="col-xs-12" ng-show="taskIsExpanded(task)">{{task.description}}</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- 3rd party -->
+        <script type="text/javascript" src="scripts/angular.js"></script>
+        <script type="text/javascript" src="scripts/angular-mocks.js"></script>
+        <script type="text/javascript" src="scripts/angular-route.js"></script>
+        <script type="text/javascript" src="scripts/angular-resource.js"></script>
+        <script type="text/javascript" src="scripts/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="scripts/backendLess.module.js"></script>
+
+
+        <!-- Custom Files -->
+        <script type="text/javascript" src="app/app.js"></script>
+        <script type="text/javascript" src="app/controllers/taskListController.js"></script>
+    </body>
+</html>

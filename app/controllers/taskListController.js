@@ -32,6 +32,14 @@ app.controller('taskListController', function ($scope) {
         task.expanded = !task.expanded;
     };
 
+    $scope.taskIsExpanded = function (task) {
+        return task.expanded;
+    };
+
+    $scope.completeTask = function (task) {
+        task.status = 'DONE';
+    };
+
     $scope.addTask = function () {
 
     };
