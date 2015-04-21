@@ -15,7 +15,8 @@
                         <button type="button" class="glyphicon glyphicon-plus btn btn-primary btn-md pull-right" ng-click="addTask()"> Add</button>
                     </div>
 
-                    <div class="col-md-12 table" ng-repeat="task in taskList" ng-class="{'btn-success':task.completed}" ng-class-odd="'btn-info'" ng-class-even="'btn-warning'">
+                    <div class="col-md-12" ng-repeat="task in taskList"
+                         ng-class="{'btn-success':task.completed}" ng-class-odd="'bg-info'" ng-class-even="'bg-warning'">
                         <div class="col-xs-1" ng-click="task.expanded=!task.expanded">
                             <span class="caret"></span>
                         </div>
