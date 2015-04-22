@@ -38,7 +38,7 @@ app.factory('tasksService', function ($http, baseAPIRoute) {
             }).
             error(function(data, status, headers, config) {
                 callback(data, null);
-                ErrorHandler.alert(data);
+                //ErrorHandler.alert(data);
             });
     }
 
@@ -49,7 +49,7 @@ app.factory('tasksService', function ($http, baseAPIRoute) {
             }).
             error(function(data, status, headers, config) {
                 callback(data, callback);
-                ErrorHandler.alert(data);
+                //ErrorHandler.alert(data);
             });
     }
 
@@ -99,7 +99,6 @@ app.factory('tasksService', function ($http, baseAPIRoute) {
             callback(null, data);
         }).error(function(data, status, headers, config) {
             callback(data, null);
-            ErrorHandler.alert(data);
         });
     }
 });

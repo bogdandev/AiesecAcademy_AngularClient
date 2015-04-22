@@ -1,5 +1,5 @@
 
-var app = angular.module('TaskList',['ngMockE2E', 'ngRoute','ngResource','ui.bootstrap']);
+var app = angular.module('TaskList',['ngMockE2E','ngRoute','ngResource','ui.bootstrap','ngAnimate', 'toastr']);
 
 app.config(['$routeProvider', function($routeProvider){
     $routeProvider

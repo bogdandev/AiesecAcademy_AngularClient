@@ -8,7 +8,7 @@
         <input type="text"
                class="form-control date"
                id="dateFroms"
-               placeholder="Pick date"
+               placeholder="Deadline"
                datepicker-popup="MMM dd, yyyy"
                ng-click="dateFrom=true"
                ng-model="task.deadline"
@@ -16,7 +16,7 @@
                max-date="'2015-06-22'"
                is-open="dateFrom"
                ng-required="true"
-               close-text="Close" >
+               close-text="Close" />
     </div>
     <div class="col-md-2 controls">
         <span class="glyphicon glyphicon-ok" ng-click="addTask(task)" data-tooltip="Save"></span>

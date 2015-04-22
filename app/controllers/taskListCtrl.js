@@ -1,5 +1,5 @@
 
-app.controller('TaskListCtrl',function($scope, tasksService, $location){
+app.controller('TaskListCtrl',function($scope, tasksService, $location,toastr){
 
     $scope.tasks = [];
 
@@ -18,7 +18,7 @@ app.controller('TaskListCtrl',function($scope, tasksService, $location){
             if (err === null) {
                 $scope.tasks = data;
             } else {
-                console.log(err);
+                toastr.error(err.message,'Error');
             }
         });
     })();
@@ -31,8 +31,9 @@ app.controller('TaskListCtrl',function($scope, tasksService, $location){
         tasksService.completeTask(task.id, function (err, data) {
             if (err === null) {
                 task.status = 'DONE';
+                toastr.success('Task '+task.name+ ' completed!','Success!');
             } else {
-                console.log(err);
+                toastr.error(err.message,'Error');
             }
         });
     }
@@ -49,8 +50,9 @@ app.controller('TaskListCtrl',function($scope, tasksService, $location){
         tasksService.deleteTask(task.id, function (err, data) {
             if (err === null) {
                 $scope.tasks.splice(index, 1);
+                toastr.warning('Task '+task.name+ ' deleted!','Success!');
             } else {
-                console.log(err);
+                toastr.error(err.message,'Error');
             }
         });
     }

@@ -1,5 +1,5 @@
 
-app.controller('TaskCtrl',function($scope, $routeParams, $location, $filter, tasksService){
+app.controller('TaskCtrl',function($scope, $routeParams, $location, $filter, tasksService,toastr){
 
     $scope.task = {};
     $scope.today = new Date();
@@ -19,7 +19,7 @@ app.controller('TaskCtrl',function($scope, $routeParams, $location, $filter, tas
             if (err === null) {
                 $scope.task = data;
             } else {
-                console.log(err);
+                toastr.error('Error', err.message);
             }
         });
     }
@@ -31,8 +31,9 @@ app.controller('TaskCtrl',function($scope, $routeParams, $location, $filter, tas
         tasksService.updateTask($routeParams.id, requestObject, function (err, data) {
             if (err === null) {
                 $scope.goToListView();
+                toastr.success('Task '+task.name+' updated!','Success!');
             } else {
-                console.log(err);
+                toastr.error('Error', err.message);
             }
         });
     }
@@ -43,8 +44,9 @@ app.controller('TaskCtrl',function($scope, $routeParams, $location, $filter, tas
         tasksService.addTask(requestObject, function (err, data) {
             if (err === null) {
                 $scope.goToListView();
+                toastr.success('Task '+task.name+' added!','Success!');
             } else {
-                console.log(err);
+                toastr.error('Error', err.message);
             }
         });
     }
@@ -56,9 +58,9 @@ app.controller('TaskCtrl',function($scope, $routeParams, $location, $filter, tas
             formatedDate = $filter('date')(task.deadline, 'yyyy-MM-dd');
         }
         return {
-            'aiesec_tasklistbundle_task[name]': task.name,
-            'aiesec_tasklistbundle_task[description]': task.description,
-            'aiesec_tasklistbundle_task[deadline]': formatedDate
+            'aiesec_task[name]': task.name,
+            'aiesec_task[description]': task.description,
+            'aiesec_task[deadline]': formatedDate
         };
     }
 
@@ -66,8 +68,9 @@ app.controller('TaskCtrl',function($scope, $routeParams, $location, $filter, tas
         tasksService.completeTask(task.id, function (err, data) {
             if (err === null) {
                 task.status = 'DONE';
+                toastr.success('Task '+task.name+ ' completed!','Success!');
             } else {
-                console.log(err);
+                toastr.error(err.message,'Error');
             }
         });
     }
@@ -76,8 +79,9 @@ app.controller('TaskCtrl',function($scope, $routeParams, $location, $filter, tas
         tasksService.deleteTask(task.id, function (err, data) {
             if (err === null) {
                 goToListView();
+                toastr.warning('Task '+task.name+ ' deleted!','Success!');
             } else {
-                console.log(err);
+                toastr.error(err.message,'Error');
             }
         });
     }
