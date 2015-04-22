@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Add Task</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body ng-app="aiesecTaskList">
+
+        <div class="container" ng-controller="taskController">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="jumbotron">
+                        <h3>Add Task</h3>
+                    </div>
+                    <form name="newTask">
+                        <div class="col-md-12 form-group">
+                            <div class="col-xs-1">
+                                <input type="checkbox" ng-click="completeTask()" ng-hide="!task.id"/>
+                            </div>
+                            <div class="col-xs-6"><input type="text" class="form-control" ng-model="task.name" placeholder="Enter task name" required/></div>
+                            <div class="col-xs-3"><div class="input-group"><div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div><input type="text" class="form-control" ng-model="task.deadline" placeholder="Enter date" required/></div></div>
+                            <div class="col-xs-2">
+                                <button class="btn btn-success" type="submit" ng-disabled="newTask.$invalid">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- 3rd party -->
+        <script type="text/javascript" src="scripts/angular.js"></script>
+        <script type="text/javascript" src="scripts/angular-mocks.js"></script>
+        <script type="text/javascript" src="scripts/angular-route.js"></script>
+        <script type="text/javascript" src="scripts/angular-resource.js"></script>
+        <script type="text/javascript" src="scripts/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="scripts/backendLess.module.js"></script>
+
+
+        <!-- Custom Files -->
+        <script type="text/javascript" src="app/app.js"></script>
+        <script type="text/javascript" src="app/controllers/taskListController.js"></script>
+        <script type="text/javascript" src="app/controllers/taskController.js"></script>
+    </body>
+</html>
